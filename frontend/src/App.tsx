@@ -37,18 +37,28 @@
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [message, setMessage] = useState('');
+  type Author = {
+    id: number;
+    name: string;
+  };
+  const [authors, setAuthors] = useState<Author[]>([]);
 
   useEffect(() => {
-    fetch('/api/hello')
-      .then((res) => res.text())
-      .then((data) => setMessage(data));
+    fetch('api/authors')
+      .then((response) => response.json())
+      .then((data) => setAuthors(data))
+      .catch((error) => console.error('Error fetching authors:', error));
   }, []);
 
   return (
     <div>
       <h1>Spring Boot + React</h1>
-      <p>{message}</p>
+
+      <ul>
+        {authors.map((author) => (
+          <li key={author.id}>{author.name}</li>
+        ))}
+      </ul>
     </div>
   );
 }
