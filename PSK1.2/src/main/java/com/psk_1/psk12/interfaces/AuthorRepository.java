@@ -1,14 +1,7 @@
 package com.psk_1.psk12.interfaces;
 import com.psk_1.psk12.model.Author;
-import java.util.ArrayList;
-import java.util.List;
-public interface AuthorRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    public List<Author> findAll();
+public interface AuthorRepository extends JpaRepository<Author, Long> {
 
-    public Author findById(long id);
-
-    public void addAuthor(Author author);
-
-    public void deleteAuthor(long id);
 }

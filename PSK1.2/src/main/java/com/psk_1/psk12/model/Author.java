@@ -9,12 +9,12 @@ import java.util.List;
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "authors")//????
+    @ManyToMany(mappedBy = "authors")
     private List<Book> books;
 
     public Author() {}
