@@ -53,4 +53,16 @@ public class Book {
     public void setYear(int year) {
         this.year = year;
     }
+    public String getGenre() {
+        return genre;
+    }
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    public List<Author> getAuthors() {
+        return authors;
+    }
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
 }

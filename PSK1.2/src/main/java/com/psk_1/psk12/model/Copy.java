@@ -43,5 +43,7 @@ public class Copy {
     public String getQuality() {
         return quality;
     }
-    public void setQuality(String quality) {}
+    public void setQuality(String quality) {
+        this.quality = quality;
+    }
 }

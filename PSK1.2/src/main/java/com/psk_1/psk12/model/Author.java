@@ -1,5 +1,6 @@
 package com.psk_1.psk12.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.psk_1.psk12.model.Book;
 import jakarta.persistence.*;
 import java.util.List;
