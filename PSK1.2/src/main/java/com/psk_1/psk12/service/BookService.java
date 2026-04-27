@@ -5,6 +5,7 @@ import com.psk_1.psk12.interfaces.AuthorRepository;
 import com.psk_1.psk12.interfaces.BookRepository;
 import com.psk_1.psk12.model.Author;
 import com.psk_1.psk12.model.Book;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,6 +21,7 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    @Transactional
     public List<BookDTO> getBooksAndAuthors() {
         List<Book> books = bookRepository.findAllWithAuthors();
         return books.stream()

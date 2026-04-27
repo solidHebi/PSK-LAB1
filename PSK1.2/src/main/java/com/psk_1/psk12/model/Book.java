@@ -19,6 +19,9 @@ public class Book {
     @Column
     private String genre;
 
+    @OneToMany(mappedBy="book")
+    private List<Copy> copies;
+
     @ManyToMany
     @JoinTable(
             name = "Author_books",
@@ -26,6 +29,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private List<Author> authors;
+
 
     public Book() {}
 

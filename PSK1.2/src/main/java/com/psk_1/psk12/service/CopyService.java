@@ -5,6 +5,7 @@ import com.psk_1.psk12.interfaces.BookRepository;
 import com.psk_1.psk12.interfaces.CopyRepository;
 import com.psk_1.psk12.model.Book;
 import com.psk_1.psk12.model.Copy;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +18,12 @@ public class CopyService {
         this.copyRepository = copyRepository;
         this.bookRepository = bookRepository;
     }
-
+    @Transactional
     public List<Copy> getCopiesOfBook(String isbn) {
         return copyRepository.findCopiesByBookIsbn(isbn);
     }
+
+    @Transactional
     public void createCopy(CopyDTO dto) {
 
         Book book = bookRepository.findById(dto.getIsbn()).orElseThrow();
