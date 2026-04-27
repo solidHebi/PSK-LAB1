@@ -1,9 +1,11 @@
 package com.psk_1.psk12.controller;
 
 
+import com.psk_1.psk12.DTO.CopyDTO;
 import com.psk_1.psk12.model.Copy;
 import com.psk_1.psk12.service.CopyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +18,15 @@ public class CopyController {
     public CopyController(CopyService copyService) {
         this.copyService = copyService;
     }
+
     @GetMapping("copies/{isbn}")
     public List<Copy> getCopies(@PathVariable("isbn") String isbn) {
         return copyService.getCopiesOfBook(isbn);
+    }
+
+    @PostMapping("copies")
+    public ResponseEntity<Void> createCopy(@RequestBody CopyDTO dto) {
+        copyService.createCopy(dto);
+        return ResponseEntity.ok().build();
     }
 }

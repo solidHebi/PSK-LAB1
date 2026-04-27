@@ -12,4 +12,8 @@ public interface BookRepository extends JpaRepository<Book, String>{
 
     @Query("SELECT b FROM Book b JOIN FETCH b.authors")
     List<Book> findAllWithAuthors();
+
+//    @Query("SELECT b FROM Book b WHERE b.isbn = :isbn")
+//    Book findById(@Param("isbn") String isbn);
+
 }
