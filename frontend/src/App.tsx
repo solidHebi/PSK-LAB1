@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import axios from 'axios';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
   const [selectedBook, setSelectedBook] = useState<BookDTO | null>(null);
   const [copies, setCopies] = useState<CopyDTO[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const [editingCopyId, setEditingCopyId] = useState<number | null>(null);
 
   // Load books
   useEffect(() => {
@@ -74,6 +76,34 @@ function App() {
 
       console.log('Copy created');
     } catch (err) {
+      console.error(err);
+    }
+  };
+  const updateCopy = async () => {
+    try {
+
+      await axios.put(
+          `/api/copies/${editingCopyId}`,
+          copyForm
+      );
+
+      alert('Copy updated');
+
+    } catch (err: any) {
+
+      if (err.response?.status === 409) {
+
+        alert(
+            'This copy was modified by another user. Reloading latest data.'
+        );
+
+        if (selectedBook) {
+          loadCopies(selectedBook.isbn, selectedBook);
+        }
+
+        return;
+      }
+
       console.error(err);
     }
   };
@@ -122,6 +152,22 @@ function App() {
                   Copy #{copy.id} - {copy.quality} -{' '}
                   {copy.inInventory ? 'In Library' : 'Checked Out'} -{' '}
                   {copy.year}
+
+                  <button
+                      onClick={() => {
+                        setEditingCopyId(copy.id);
+
+                        setCopyForm({
+                          isbn: selectedBook.isbn,
+                          year: copy.year,
+                          quality: copy.quality,
+                          inInventory: copy.inInventory,
+                        });
+                      }}
+                      style={{ marginLeft: '10px' }}
+                  >
+                    Edit
+                  </button>
                 </li>
               ))}
             </ul>
@@ -170,7 +216,11 @@ function App() {
 
             <br />
 
-            <button onClick={addCopy}>Add Copy</button>
+            {editingCopyId ? (
+                <button onClick={updateCopy}>Update Copy</button>
+            ) : (
+                <button onClick={addCopy}>Add Copy</button>
+            )}
             <button onClick={() => setShowModal(false)}>Close</button>
           </div>
         </div>

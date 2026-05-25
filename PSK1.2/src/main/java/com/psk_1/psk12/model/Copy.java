@@ -16,6 +16,8 @@ public class Copy {
     private int year;
     @Column
     private String quality;
+    @Version
+    private Long version;
 
 
     @ManyToOne

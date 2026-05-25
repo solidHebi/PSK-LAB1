@@ -29,4 +29,14 @@ public class CopyController {
         copyService.createCopy(dto);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("copies/{id}")
+    public ResponseEntity<Void> updateCopy(
+            @PathVariable Long id,
+            @RequestBody CopyDTO dto) {
+
+        copyService.updateCopy(id, dto);
+
+        return ResponseEntity.ok().build();
+    }
 }
